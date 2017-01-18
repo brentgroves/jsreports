@@ -1,0 +1,12 @@
+{
+  "poNumbers": [
+
+    {"fpono": "11111", "fcompany": "company", "fcngdate": "1/1/1"},
+    {"fpono": "11111", "fcompany": "company", "fcngdate": "1/1/1"},
+    {"fpono": "11111", "fcompany": "company", "fcngdate": "1/1/1"}
+    ],
+  "dtStart": "01-01-2017 10:15:10",
+  "dtEnd": "01-05-2017 10:15:10"
+
+
+}

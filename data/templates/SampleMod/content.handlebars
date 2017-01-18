@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.categories.min.js"></script>
+
+<style>
+{#asset custom.css}
+</style>
+
+<h2>PO Items</h2>
+{{someText}}
+<br/>
+
+<table class="table table-striped">
+    <tr>
+        <th>PO</th>
+        <th>Receiver</th>
+        <th>PN</th>
+        <th>Cost</th>
+    </tr>
+    {{#each poitem}}
+            {{#poChange fpono freceiver fpartno totcost}}
+                <tr>
+                    <td><span class="poChange">{{fpono}}/{{freceiver}}</span></td>
+                </tr>
+                <tr>
+                    <td>{{fpono}}</td>
+                    <td>{{freceiver}}</td>
+                    <td>{{fpartno}}</td>
+                    <td>{{toFixed totcost}}</td>
+                </tr>
+            {{else}}
+                <tr>
+                    <td>{{fpono}}</td>
+                    <td>{{freceiver}}</td>
+                    <td>{{fpartno}}</td>
+                    <td>{{toFixed totcost}}</td>
+                </tr>
+            {{/poChange}}    
+        </tr>
+    {{/each}}
+</table>
+
+<br/>
+
+<br/>
+
+<h2>Book sales chart</h2>
+<div id="placeholder" style="width:700px;height:350px"></div>
+
+<script>
+    $(function () {
+        console.log('test')
+        //a()
+        // stringified input data are later in browser interpretted as real object
+//        var data = {{{toJSON books}}}
+//        var books = data.map(function(b) { return [ b.name, b.sales ]});
+
+        var data = {{{toJSON poitem}}}
+        var books = data.map(function(b) { return [ b.fpono, b.totcost ]});
+  
+        $.plot("#placeholder", [ books ],
+        {
+            series: {
+                bars: { show: true, barWidth: 0.6, align: "center" }
+            },
+            xaxis: {   mode: "categories", tickLength: 0 }
+        });
+/*
+        $.plot("#placeholder", [ books ],
+        {
+            series: {
+                bars: { show: true, barWidth: 0.6, align: "center" }
+            },
+            xaxis: {   mode: "categories", tickLength: 0 }
+        });
+        */
+    });
+</script>

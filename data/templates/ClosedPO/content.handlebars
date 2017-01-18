@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.categories.min.js"></script>
+
+<style>
+{#asset custom.css}
+</style>
+
+<div class="container"> 
+     <div class="row" >
+        <div class="col-xs-8 text-right " >{{fmtDate dtStart}}
+        To {{fmtDate dtEnd}}
+        </div>
+        <div class="col-xs-4" >&nbsp;</div>
+      </div>
+</div>  
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Item</th>
+        <th>Part</th>
+        <th>Order</th>
+        <th>Recv</th>
+    </tr>
+    </thead>
+<tbody>
+{{#each poNumbers}}
+    {{#poChange fpono fcompany fcngdate fstatus}}
+    <tr >
+        {{#eq fstatus "OPEN"}}
+        <td colspan="4">PO: {{fpono}} / {{trim fcompany}} / <span style="color:red !important">{{fstatus}}</span></td>
+        {{else}}
+        <td colspan="4">PO: {{fpono}} / {{trim fcompany}} / {{fstatus}}</td>
+        {{/eq}}
+    </tr>
+    <tr>
+        <td>{{fItemno}}</td>
+        <td>{{fpartno}}</td>
+        <td>{{fordqty}}</td>
+        {{#lt fqtyrecvSum fordqty}}
+        <td><span style="color:red !important">{{fqtyrecvSum}}</span></td>
+        {{else}}
+        <td>{{fqtyrecvSum}}</td>
+        {{/lt}}
+    </tr>
+    {{else}}
+    <tr>
+        <td>{{fItemno}}</td>
+        <td>{{fpartno}}</td>
+        <td>{{fordqty}}</td>
+        {{#lt fqtyrecvSum fordqty}}
+        <td><span style="color:red !important">{{fqtyrecvSum}}</span></td>
+        {{else}}
+        <td>{{fqtyrecvSum}}</td>
+        {{/lt}}
+    </tr>
+    {{/poChange}}    
+
+{{/each}}
+
+</tbody>
+</table>
+
+<script>
+
+var total=500;
+    $(function () {
+        console.log('test')
+    });
+</script>

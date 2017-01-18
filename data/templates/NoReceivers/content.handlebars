@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.categories.min.js"></script>
+
+<style>
+{#asset custom.css}
+</style>
+
+<div class="container"> 
+     <div class="row" >
+        <div class="col-xs-8 text-right " >{{fmtDate dtStart}}
+        To {{fmtDate dtEnd}}
+        </div>
+        <div class="col-xs-4" >&nbsp;</div>
+      </div>
+</div>  
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Item</th>
+        <th>Description</th>
+        <th>Bin</th>
+        <th>Qty</th>
+    </tr>
+    </thead>
+<tbody>
+{{#each poNumbers}}
+    {{#poChange VendorPO VendorName podate POStatusDescription}}
+    <tr >
+        <td colspan="4">PO: {{VendorPO}} / {{trim VendorName}} / {{POStatusDescription}}</td>
+    </tr>
+    <tr>
+        <td>{{itemdescription}}</td>
+        <td>{{Description2}}</td>
+        <td>{{cribbin}}</td>
+        <td>{{quantity}}</td>
+    </tr>
+    {{else}}
+    <tr>
+        <td>{{itemdescription}}</td>
+        <td>{{Description2}}</td>
+        <td>{{cribbin}}</td>
+        <td>{{quantity}}</td>
+    </tr>
+    {{/poChange}}    
+
+{{/each}}
+
+</tbody>
+</table>
+
+<script>
+
+var total=500;
+    $(function () {
+        console.log('test')
+    });
+</script>

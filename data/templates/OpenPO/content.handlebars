@@ -1,0 +1,179 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.categories.min.js"></script>
+
+<style>
+{#asset custom.css}
+</style>
+<table>
+<tbody>
+<tr>
+<td style='padding-right: 300px;'><img src='{#image logoIN250}'></td>
+<td>
+    <strong>Duplicate Copy</strong><br/>
+    <strong>Purchase Order: {{poNumbers.[0].poNumber}}</strong><br/>
+    <strong>Vendor: {{poNumbers.[0].fvendno}}</strong>
+</td>
+</tr>
+<tr>
+<td style='padding-right: 300px;'><strong>To:</strong><br/>
+{{poNumbers.[0].fccompany}}<br/>
+{{poNumbers.[0].fmstreet}}<br/>
+{{poNumbers.[0].fccity}}, {{poNumbers.[0].fcstate}} {{poNumbers.[0].fczip}}<br/>
+{{poNumbers.[0].fccountry}}<br/>
+</td>
+<td><strong>Ship to : </strong><br/>
+BUSCHE<br/>
+1563 E. State Road 8<br/>
+P.O. Box 77<br/>
+ALBION, IN 46701-0077<br/>
+USA<br/>
+</td>
+</tr>
+</tbody>
+</table>
+
+<br/>
+
+<h6> <span style='padding-left:10px'>Phone:{{poNumbers.[0].fcphone}}</span><span style='padding-left:10px'> Fax: {{poNumbers.[0].fcfax}}</span></h6>
+<table style="margin-bottom:0px" class="table table-bordered">
+    <thead>
+    <tr>
+        <th>PO Date</th>
+        <th>Ship Via</th>
+        <th>FOB</th>
+        <th>Planner</th>
+        <th>Confirming to</th>
+        <th>Terms</th>
+    </tr>
+    </thead>
+<tbody>
+    <tr>
+        <td>{{formatDate poNumbers.[0].poDate}}</td>
+        <td>{{poNumbers.[0].fshipvia}}</td>
+        <td>{{poNumbers.[0].ffob}}</td>
+        <td>CM</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+</tbody>
+
+</table>
+<table class="table table-bordered ">
+    <thead>
+    <tr>
+        <th>Item</th>
+        <th>Part/Rev/Description/Details</th>
+        <th>Quantity</th>
+        <th>Promised<br/>Delivery</th>
+        <th>Unit Cost</th>
+        <th>Extended Cost</th>
+    </tr>
+    </thead>
+<tbody>
+
+{{#each poNumbers}}
+{{#if @last}}
+    <tr>
+        <td>{{rowNumber}}</td>
+        <td>{{fmtDesc itemDescription}}<br/>
+        Category :&nbsp {{pocategory}}</td>
+        <td>{{qtyOrd}}</td>
+        <td>{{formatDate received}}</td>
+        <td class="text-right">${{toFixed cost}}</td>
+        <td class="text-right">${{toFixed extCost}}</td>
+    </tr>
+    <tr>
+        <table class="table table-borderless">
+        <tr>
+        <td colspan="2">
+            <table class="table table-borderless">
+                <tr>
+                    <td   >
+                        Please reference our purchase order number on all correspondence.<br/> 
+                        Notification of changes regarding quantities to be shipped and changes<br/>
+                        in the delivery schedule are required.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+<br/>
+<strong>PO APPROVALS:</strong><br/>
+Requr. _______________________________________<br/>
+Dept. Head ___________________________________<br/>
+G.M. Only: All Items Over $500.00<br/>
+G.M ________________________________________<br/>
+VP/Group Controller. Only: All Assests/CER and ER Over $10,000.00<br/>
+VP/Group Controller _____________________________________<br/>
+Pres. Only: All Assets/CER/ER and/or PO&#39;s Over $10,000.00<br/>
+President _____________________________________<br/>
+                    </td>
+                </tr>
+            </table>
+    
+        </td>
+        <td colspan="3">
+            <table class="table table-borderless">
+                <tr>
+                    <td class="text-right">
+                        Total Items Price:
+                    </td>
+                    <td class="text-right">
+                        ${{totCost ../poNumbers}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right">
+                        Sales Tax  
+                    </td>
+                    <td class="text-right">
+                        $0.00
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right">
+                        Fixed Cost 
+                    </td>
+                    <td class="text-right">
+                        $0.00
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right">
+                        <strong>Total PO Price</strong>
+                    </td>
+                    <td class="text-right">
+                        <strong>${{totCost ../poNumbers}}</strong>
+                    </td>
+                </tr>
+
+            </table>
+        </td>
+        </tr>
+        </table>
+    </tr>
+    {{else}}
+    <tr>
+        <td>{{rowNumber}}</td>
+        <td>{{fmtDesc itemDescription}}<br/>
+        Category :&nbsp {{pocategory}}</td>
+        <td>{{qtyOrd}}</td>
+        <td>{{formatDate received}}</td>
+        <td class="text-right">${{cost}}</td>
+        <td class="text-right">${{extCost}}</td>
+    </tr>
+{{/if}}
+{{/each}}
+</tbody>
+
+</table>
+
+<script>
+var total=500;
+    $(function () {
+        console.log('test')
+        total = {{totCost poNumbers}}
+    });
+</script>
